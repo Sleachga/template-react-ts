@@ -5,7 +5,9 @@
   "main": "index.js",
   "scripts": {
     "devc": "cd client && pnpm dev",
-    "devs": "cd server && pnpm start"
+    "devs": "cd server && pnpm start",
+    "buildc": "cd client && pnpm build",
+    "builds": "cd server && pnpm build"
   },
   "keywords": [],
   "author": "",
