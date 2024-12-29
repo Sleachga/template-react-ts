@@ -4,8 +4,6 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "installc": "cd client && pnpm install",
-    "installs": "cd server && pnpm install",
     "devc": "cd client && pnpm dev",
     "buildc": "cd client && pnpm build",
     "starts": "cd server && pnpm start"
