@@ -14,10 +14,17 @@ export class GameScene extends Phaser.Scene {
         down: false,
     };
 
-    cursorKeys: Phaser.Types.Input.Keyboard.CursorKeys;
+    cursorKeys: Phaser.Types.Input.Keyboard.CursorKeys; // Add WASD keys property
+    wasdKeys: object;
 
     async create() {
         this.cursorKeys = this.input.keyboard!.createCursorKeys();
+        this.wasdKeys = this.input.keyboard!.addKeys({
+            W: Phaser.Input.Keyboard.KeyCodes.W,
+            A: Phaser.Input.Keyboard.KeyCodes.A,
+            S: Phaser.Input.Keyboard.KeyCodes.S,
+            D: Phaser.Input.Keyboard.KeyCodes.D,
+        });
 
         try {
             this.room = await this.client.joinOrCreate("dev");
@@ -35,7 +42,6 @@ export class GameScene extends Phaser.Scene {
 
                 // listening for server updates
                 player.onChange(() => {
-                    console.log("MOVING", player);
                     // update local position immediately
                     entity.x = player.x;
                     entity.y = player.y;
@@ -80,10 +86,14 @@ export class GameScene extends Phaser.Scene {
         }
 
         // send input to the server
-        this.inputPayload.left = this.cursorKeys.left.isDown;
-        this.inputPayload.right = this.cursorKeys.right.isDown;
-        this.inputPayload.up = this.cursorKeys.up.isDown;
-        this.inputPayload.down = this.cursorKeys.down.isDown;
+        this.inputPayload.left =
+            this.cursorKeys.left.isDown || this.wasdKeys["A"].isDown;
+        this.inputPayload.right =
+            this.cursorKeys.right.isDown || this.wasdKeys["D"].isDown;
+        this.inputPayload.up =
+            this.cursorKeys.up.isDown || this.wasdKeys["W"].isDown;
+        this.inputPayload.down =
+            this.cursorKeys.down.isDown || this.wasdKeys["S"].isDown;
 
         this.room.send(0, this.inputPayload);
     }
