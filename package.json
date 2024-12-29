@@ -4,15 +4,13 @@
   "description": "",
   "main": "index.js",
   "scripts": {
+    "installc": "cd client && pnpm install",
+    "installs": "cd server && pnpm install",
     "devc": "cd client && pnpm dev",
-    "devs": "cd server && pnpm start",
     "buildc": "cd client && pnpm build",
-    "builds": "cd server && pnpm build"
+    "starts": "cd server && pnpm start"
   },
   "keywords": [],
   "author": "",
-  "license": "ISC",
-  "dependencies": {
-    "colyseus.js": "^0.15.26"
-  }
+  "license": "ISC"
 }
